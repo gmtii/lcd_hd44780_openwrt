@@ -36,3 +36,29 @@ vienen datos según el siguiente else if:
 0x1A = pone preparado a 1 e inicia la representación en el display
 
 Pueden incoporarse más líneas o comandos según nuestro display.
+
+Configuración:
+
+Compilar con MPLAB y ajustar la velocidad de puerto que queremos usar en el 
+serial.c según al fórmula indicada. Tal cual está configurada para 10 Mhz con 
+115200 bps= (Velocidad efetiva es la frecuencia dle cristobal x 4 PLL):
+
+p.e.: SPBRGH:SPBRG=(FOSC/baudrate)/4-1 para un cristal de 10 Mhz da:
+
+10.000.000x4/115200-1=86 que es el valor por defecto.
+
+El conexionada de la pantalla es como sigue:
+
+/* Display tipo HD44780 conectado al puerto C del PIC 
+según la siguiente correspondencia:
+
+Pin 6, RC4 -> Display D4
+Pin 5, RC5 -> Display D5
+Pin 8, RC6 -> Display D6
+Pin 9, RC7 -> Display D7
+
+Pin 15, RC1 -> Display LCD_RS
+Pin 14, RC2 -> Display LCD_RW (también puede ir a GND)
+Pin 7 , RC3 -> Display LCD_EN
+*/
+
