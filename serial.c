@@ -2,12 +2,13 @@
 #include "serial.h"
 #include <usart.h>
 
-/* Ajustar el valor de divisor según la siguiente fórmula:
+/* Ajustar el valor de divisor segï¿½n la siguiente fï¿½rmula:
 
  FOSC/[4 (n + 1)] 
  SPBRGH:SPBRG=(FOSC/baudrate)/4-1
 
-donde FOSC en la frecuencia de cristal en Hz. 
+donde FOSC en la frecuencia de cristal en Hz. multiplicada por 4
+que es el multiplicador PLL configurado en los conf bits.
 
 */
 
@@ -15,7 +16,7 @@ donde FOSC en la frecuencia de cristal en Hz.
 #define divisor 86
 
 
-// Inicia la configuración de USART
+// Inicia la configuraciï¿½n de USART
 
 void init_comms(void)
 {
@@ -44,7 +45,7 @@ void init_comms(void)
 
 }
 
-// Manda carácter
+// Manda carï¿½cter
 
 void putch(unsigned char byte) 
 {
@@ -54,7 +55,7 @@ void putch(unsigned char byte)
 	TXREG = byte;
 }
 
-// Recibe carácter
+// Recibe carï¿½cter
 
 unsigned char getch() {
 	/* retrieve one byte */
@@ -63,7 +64,7 @@ unsigned char getch() {
 	return RCREG;	
 }
 
-// Recibe carácter con eco
+// Recibe carï¿½cter con eco
 
 unsigned char getche(void)
 {
@@ -72,7 +73,7 @@ unsigned char getche(void)
 	return c;
 }
 
-// Envía string
+// Envï¿½a string
 
 void txstring(const char *s , unsigned char fl)
 {
@@ -84,7 +85,7 @@ void txstring(const char *s , unsigned char fl)
 	putch('\n'); }
 }
 
-// Detecta buffer overrun, reiniciando el USART a continuación.
+// Detecta buffer overrun, reiniciando el USART a continuaciï¿½n.
 
 void test_oerr(void) {
 
