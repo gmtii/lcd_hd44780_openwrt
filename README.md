@@ -1,7 +1,8 @@
 Interface serial TTL->PIC->HD44780 para incorporar una pantalla a un
 router OpenWrt.
 
-Este ejemplo está hecho para un display de 16x2.
+Este ejemplo está hecho para un display de 16x2 y el script a ejecutar en 
+el router de ejemplo es lcd.sh
 
 Inicia mostrando dos mensajes fijos mientras el router va arrancando.
 
