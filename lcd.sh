@@ -1,17 +1,29 @@
 #! /bin/sh -
+#Script para initegración de OpenWrt con pantalla HD44780 y PIC
+#Versión de display HD77480 20x4 líneas.
+#0x15,0x16,0x17,0x18 son los caracteres para selecionar cada una de las ç
+#lineas del cld.
+#Este script se ejecutrada en /etc/rc.local por ejemplo.
+#
+# https://github.com/gmtii/lcd_hd44780_openwrt
 
-#stty 115200 < /dev/ttyS0
+stty 115200 < /dev/ttyS0
 
 echo GMT-1 > /etc/TZ
 
-trap 'exit 1' SIGINT    # exit on ctrl-c, useful for debugging
+trap 'exit 1' SIGINT
 
+# activamos la pantalla para mostrar caracteres desde el router
 echo -ne '\x1A' > /dev/ttyS0
+
+# borramos pantalla
 echo -ne '\x1B' > /dev/ttyS0
 
 while true        # loop forever
 
 do
+
+# obtenemos información del MPD
 
        mpd=$(echo "currentsong" | nc localhost 6600 | grep -e "^Name: "|cut -c 7-30)
        echo -ne '\x15'$mpd > /dev/ttyS0
@@ -24,8 +36,12 @@ do
        echo -ne '\x18'$mpd3 > /dev/ttyS0
        sleep 5
 
+# borramos pantalla
+
 	echo -ne '\x1B' > /dev/ttyS0
-	
+
+# creamos algunas variables con información del router
+
         hora=$(date | cut -c 12-19)
 	memfree=$(free | grep Mem| cut -c 41-45)
 	uptime=$(uptime | cut -c 14-19)
@@ -38,6 +54,8 @@ do
 	echo -ne '\x17'"Wifi: "$rate" " > /dev/ttyS0
 	echo -ne '\x18'"Recibido: "$tx> /dev/ttyS0
 	sleep 5
+
+# borramos pantalla
 
 	echo -ne '\x1B' > /dev/ttyS0
 
