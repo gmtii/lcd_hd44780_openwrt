@@ -1,4 +1,5 @@
 /* Display para OpenWrt con PIC18f14k50
+Recepción basada en interrupciones y un buffer circular de 64 bytes.
 
 #include <p18f14k50.h> 
 #include "lcd.h"
